@@ -1,0 +1,63 @@
+{
+  "name": "@migorengx/lompat",
+  "version": "0.1.0",
+  "description": "awesome library",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "test": "npx xv dist",
+    "start": "esno src/index.ts",
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "prepare": "husky install",
+    "fresh": "taze -w & pnpm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/migorengx/lompat.git"
+  },
+  "keywords": [
+    "typescript",
+    "library"
+  ],
+  "author": "migorengx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/migorengx/lompat/issues"
+  },
+  "homepage": "https://github.com/migorengx/lompat#readme",
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.2",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/node": "^18.19.39",
+    "esno": "^0.12.1",
+    "husky": "^7.0.4",
+    "taze": "^0.13.8",
+    "tsup": "^5.12.9",
+    "typescript": "^4.9.5",
+    "xv": "^1.1.1"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.test.*.map",
+    "!dist/**/*.test.d.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "uid": "^2.0.2"
+  }
+}
