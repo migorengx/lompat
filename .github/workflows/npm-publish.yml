@@ -1,33 +1,41 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-name: Publish NPM
+name: 🚀 Publish
 
 on:
   release:
     types: [created]
 
 jobs:
-  build:
+  publish-github:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
         with:
-          node-version: 16
-          cache: 'pnpm'
-      - name: Install dependencies
-        run: pnpm install
+          fetch-depth: 0
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - run: pnpm publish
+          node-version: 20.x
+          registry-url: https://npm.pkg.github.com/
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      - name: 📝 Version
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: pnpm version ${TAG_NAME} --no-git-tag-version
+
+      - name: 🐙 Publish no GitHub
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm publish --no-git-checks
