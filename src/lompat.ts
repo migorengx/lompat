@@ -27,16 +27,16 @@ type Callbacks = {
 
 class Lompat {
     
-    private target: Partial<Window>
+    private target: Window
     private callbacks: Callbacks = {}
     private timeout: number 
     private prefix: string = "lompat"
 
-    constructor(target: Partial<Window>, timeout: number = 3000) {
+    constructor(target: Window, timeout: number = 3000) {
         this.prepare(target)
         this.timeout = timeout
     }
-    private prepare(target: Partial<Window>) {
+    private prepare(target: Window) {
         console.log('-- target', target)
         if (target.parent) {
             this.target = target.parent
