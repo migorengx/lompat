@@ -30,7 +30,7 @@ jobs:
           node-version: 20.x
           cache: 'pnpm'
 
-       - name: Get pnpm store directory
+      - name: Get pnpm store directory
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
